@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Finance Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <h2>Finance</h2>
+    <ul>
+      <li onclick="showSection('dashboard')" id="nav-dashboard" class="active">🏠 Dashboard</li>
+      <li onclick="showSection('add')" id="nav-add">➕ Add</li>
+      <li onclick="showSection('history')" id="nav-history">📄 History</li>
+      <li onclick="showSection('loan')" id="nav-loan">👥 Loans</li>
+      <li onclick="showSection('bankLoan')" id="nav-bankLoan">🏦 Bank</li>
+      <li onclick="showSection('goal')" id="nav-goal">🎯 Goals</li>
+    </ul>
+    <button class="theme-btn" onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+
+  <div class="main">
+    <div id="dashboard" class="section">
+      <h1>Dashboard</h1>
+      <div class="cards">
+        <div class="card">Income <br> ₹<span id="income">0</span></div>
+        <div class="card">Expense <br> ₹<span id="expense">0</span></div>
+        <div class="card">Balance <br> ₹<span id="balance">0</span></div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart"></canvas>
+      </div>
+    </div>
+
+    <div id="add" class="section" style="display:none;">
+      <h3>Add Transaction</h3>
+      <input id="desc" placeholder="Description">
+      <input id="amount" type="number" placeholder="Amount">
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <button onclick="addTransaction()">Add</button>
+    </div>
+
+    <div id="history" class="section" style="display:none;">
+      <h3>Transaction History</h3>
+      <ul id="list" class="data-list"></ul>
+    </div>
+
+    <div id="loan" class="section" style="display:none;">
+      <h3>Personal Loans</h3>
+      <input id="person" placeholder="Person Name">
+      <input id="loanAmt" type="number" placeholder="Amount">
+      <button onclick="addLoan()">Add Loan</button>
+      <ul id="loanList" class="data-list"></ul>
+    </div>
+
+    <div id="bankLoan" class="section" style="display:none;">
+      <h3>Bank Loan (EMI)</h3>
+      <input id="bAmount" type="number" placeholder="Loan Amount">
+      <input id="bInterest" type="number" placeholder="Interest %">
+      <input id="bMonths" type="number" placeholder="Months">
+      <input id="bStartDate" type="date">
+      <button onclick="addBankLoan()">Calculate & Add</button>
+      <ul id="bankLoanList" class="data-list"></ul>
+    </div>
+
+    <div id="goal" class="section" style="display:none;">
+      <h3>Savings Goal</h3>
+      <input id="goalAmt" type="number" placeholder="Target Amount">
+      <button onclick="setGoal()">Set Goal</button>
+      <div class="progress"><div id="progressBar"></div></div>
+      <p id="goalStatus">₹0 / ₹0</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
